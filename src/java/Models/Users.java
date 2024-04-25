@@ -9,11 +9,11 @@ package Models;
  * @author Dell
  */
 public class Users {
-    int userid;
-    String username;
-    String password;
-    String email;
-    int role;
+    private int userid;
+    private String username;
+    private String password;
+    private String email;
+    private int role;
 
     public Users() {
     }

@@ -9,12 +9,12 @@ package Models;
  * @author Dell
  */
 public class Products {
-    int productid;
-    String productname;
-    Categories categories;
-    Double price;
-    String link;
-    String description;
+    private int productid;
+    private String productname;
+    private Categories categories;
+    private Double price;
+    private String link;
+    private String description;
 
     public int getProductid() {
         return productid;

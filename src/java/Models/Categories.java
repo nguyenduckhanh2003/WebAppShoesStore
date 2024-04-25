@@ -9,8 +9,8 @@ package Models;
  * @author Dell
  */
 public class Categories {
-    int categoriesid;
-    String categoriesname;
+    private int categoriesid;
+    private String categoriesname;
 
     public Categories() {
     }

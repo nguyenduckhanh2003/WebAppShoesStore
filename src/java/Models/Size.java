@@ -9,10 +9,10 @@ package Models;
  * @author Dell
  */
 public class Size {
-    int sizeid;
-    int productid;
-    String sizename;
-    int quantity;
+   private int sizeid;
+    private int productid;
+    private String sizename;
+    private int quantity;
 
     public Size() {
     }
