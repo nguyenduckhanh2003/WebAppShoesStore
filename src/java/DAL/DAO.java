@@ -499,37 +499,6 @@ public class DAO extends DBContext {
         }
     }
 
-    //danh sách orders
-    public ArrayList<Orderdetails> getAllOrders() {
-        ArrayList<Orderdetails> orders = new ArrayList<>();
-        try {
-            String sql = "SELECT *from OrderDetails";
-
-            PreparedStatement statement = connect.prepareStatement(sql);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                Orderdetails o = new Orderdetails();
-                o.setOrderdetailid(rs.getInt("order_detail_id"));
-                o.setUserid(rs.getInt("users_id"));
-                o.setName(rs.getString("name"));
-                o.setAddress(rs.getString("address"));
-                o.setNumber(rs.getString("phonenumber"));
-                o.setProductname(rs.getString("productname"));
-                o.setOrderdate(rs.getDate("orderdate"));
-                o.setSizename(rs.getString("size_name"));
-                o.setQuantity(rs.getInt("quantity"));
-                o.setTotalprice(rs.getDouble("totalprice"));
-                o.setPayment(rs.getString("payment"));
-                o.setStatus(rs.getString("status"));
-                orders.add(o);
-            }
-        } catch (SQLException ex) {
-
-            ex.printStackTrace();
-        }
-        return orders;
-    }
-
     public ArrayList<Orderdetails> getOrderByUID(String userid) {
         ArrayList<Orderdetails> orders = new ArrayList<>();
         try {
@@ -561,53 +530,8 @@ public class DAO extends DBContext {
         return orders;
     }
 
-    public Orderdetails getOrderByOID(String oid) {
-        try {
-            String sql = "SELECT * from OrderDetails where order_detail_id=?";
-            PreparedStatement statement = connect.prepareStatement(sql);
-            statement.setString(1, oid);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                Orderdetails o = new Orderdetails();
-                o.setOrderdetailid(rs.getInt("order_detail_id"));
-                o.setUserid(rs.getInt("users_id"));
-                o.setName(rs.getString("name"));
-                o.setAddress(rs.getString("address"));
-                o.setNumber(rs.getString("phonenumber"));
-                o.setProductname(rs.getString("productname"));
-                o.setOrderdate(rs.getDate("orderdate"));
-                o.setSizename(rs.getString("size_name"));
-                o.setQuantity(rs.getInt("quantity"));
-                o.setTotalprice(rs.getDouble("totalprice"));
-                o.setPayment(rs.getString("payment"));
-                o.setStatus(rs.getString("status"));
-                return o;
-            }
-        } catch (SQLException ex) {
 
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
-    public void UpdateStatus(String oid, String status) {
-        try {
-            String sql = "UPDATE OrderDetails\n"
-                    + "SET  status = ?\n"
-                    + "WHERE order_detail_id= ? ;";
-
-            PreparedStatement statement = connect.prepareStatement(sql);
-            statement.setString(1, status);
-            statement.setString(2, oid);
-
-            statement.executeUpdate();
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    //login, register and checkExist
+    // tìm thông tin để đăng nhập
     public Users loginUsers(String username, String password) {
         try {
             String sql = "SELECT *from Users where username = ? and password = ?;";
@@ -800,6 +724,84 @@ public class DAO extends DBContext {
         } catch (Exception e) {
         }
         return users;
+    }
+      //danh sách orders
+    public ArrayList<Orderdetails> getAllOrders() {
+        ArrayList<Orderdetails> orders = new ArrayList<>();
+        try {
+            String sql = "SELECT *from OrderDetails";
+
+            PreparedStatement statement = connect.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Orderdetails o = new Orderdetails();
+                o.setOrderdetailid(rs.getInt("order_detail_id"));
+                o.setUserid(rs.getInt("users_id"));
+                o.setName(rs.getString("name"));
+                o.setAddress(rs.getString("address"));
+                o.setNumber(rs.getString("phonenumber"));
+                o.setProductname(rs.getString("productname"));
+                o.setOrderdate(rs.getDate("orderdate"));
+                o.setSizename(rs.getString("size_name"));
+                o.setQuantity(rs.getInt("quantity"));
+                o.setTotalprice(rs.getDouble("totalprice"));
+                o.setPayment(rs.getString("payment"));
+                o.setStatus(rs.getString("status"));
+                orders.add(o);
+            }
+        } catch (SQLException ex) {
+
+            ex.printStackTrace();
+        }
+        return orders;
+    }
+    
+    // lấy thông tin từng đơn hàng.
+    public Orderdetails getOrderByOID(String oid) {
+        try {
+            String sql = "SELECT * from OrderDetails where order_detail_id=?";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, oid);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Orderdetails o = new Orderdetails();
+                o.setOrderdetailid(rs.getInt("order_detail_id"));
+                o.setUserid(rs.getInt("users_id"));
+                o.setName(rs.getString("name"));
+                o.setAddress(rs.getString("address"));
+                o.setNumber(rs.getString("phonenumber"));
+                o.setProductname(rs.getString("productname"));
+                o.setOrderdate(rs.getDate("orderdate"));
+                o.setSizename(rs.getString("size_name"));
+                o.setQuantity(rs.getInt("quantity"));
+                o.setTotalprice(rs.getDouble("totalprice"));
+                o.setPayment(rs.getString("payment"));
+                o.setStatus(rs.getString("status"));
+                return o;
+            }
+        } catch (SQLException ex) {
+
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    // cập nhật trạng thái đơn hàng
+    public void UpdateStatus(String oid, String status) {
+        try {
+            String sql = "UPDATE OrderDetails\n"
+                    + "SET  status = ?\n"
+                    + "WHERE order_detail_id= ? ;";
+
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, status);
+            statement.setString(2, oid);
+
+            statement.executeUpdate();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
