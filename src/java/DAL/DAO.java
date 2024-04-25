@@ -442,6 +442,7 @@ public class DAO extends DBContext {
         return null;
     }
 
+    //dùng để xóa thông tin cart khi đã order
     public void deleteCart(String id) {
         try {
             String sql = "DELETE FROM Cart where cart_id = ?";
