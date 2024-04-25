@@ -9,10 +9,7 @@ import Models.Products;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  *
@@ -861,7 +858,7 @@ public class DAO extends DBContext {
 //Size s= c.getSizequantity(1, "39");
 //        System.err.println(s.getQuantity());
 //c.addCart("1", "3", "Adidas Forum Low CL", "40", "1","99.99" );
-c.insertproduct("Khánh", "1", "12", "aaaaa", "aaaaa");
+//c.insertproduct("Khánh", "1", "12", "aaaaa", "aaaaa");
     }
 
 }
