@@ -410,6 +410,32 @@ public class DAO extends DBContext {
 
         return carts;
     }
+      public ArrayList<Cart> getCartbyPID(String userid) {
+        ArrayList<Cart> carts = new ArrayList<>();
+        try {
+            String sql = "SELECT *from Cart where product_id=? ";
+
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, userid);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Cart c = new Cart();
+                c.setCartid(rs.getInt("cart_id"));
+                c.setUserid(rs.getInt("users_id"));
+                c.setProductid(rs.getInt("product_id"));
+                c.setProductname(rs.getString("productname"));
+                c.setSize(rs.getString("size_name"));
+                c.setQuantity(rs.getInt("quantity"));
+                c.setTotalprice(rs.getDouble("totalprice"));
+                carts.add(c);
+            }
+        } catch (SQLException ex) {
+
+            ex.printStackTrace();
+        }
+
+        return carts;
+    }
 
     //nhận thông tin qua cartid
     public Cart getCartbyCartID(String cartid) {
@@ -599,9 +625,53 @@ public class DAO extends DBContext {
 
     //admin
     //xóa sản phẩm
-    public void deleteProduct(String id) {
+    public void deleteProduct1(String id) {
         try {
-            String sql = "DELETE FROM Products where product_id = ?";
+            String sql = "DELETE FROM Products where product_id = ? ";
+
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, id);
+            statement.executeUpdate();
+
+        } catch (SQLException ex) {
+
+            ex.printStackTrace();
+        }
+    }
+     public void deleteProduct2(String id) {
+        try {
+             String deleteProductsQuery = "DELETE FROM Products WHERE product_id = ?";
+        String deleteCartQuery = "DELETE FROM Cart WHERE product_id = ?";
+
+           PreparedStatement deleteProductsStatement = connect.prepareStatement(deleteProductsQuery);
+        PreparedStatement deleteCartStatement = connect.prepareStatement(deleteCartQuery);
+            deleteProductsStatement.setString(1, id);
+            deleteCartStatement.setString(2, id);
+            deleteProductsStatement.executeUpdate();
+            deleteCartStatement.executeUpdate();
+
+        } catch (SQLException ex) {
+
+            ex.printStackTrace();
+        }
+    }
+    
+    public void deletepCart(String id) {
+        try {
+            String sql = "";
+
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, id);
+            statement.executeUpdate();
+
+        } catch (SQLException ex) {
+
+            ex.printStackTrace();
+        }
+    }
+        public void deletepSizeofP(String id) {
+        try {
+            String sql = "DELETE FROM Size where product_id = ?";
 
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setString(1, id);
